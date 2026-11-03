@@ -1,0 +1,44 @@
+{
+  "name": "bb-plugin-prolepsia",
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "bb": ">=0.48",
+    "bbPluginSdk": ">=0.6.104"
+  },
+  "bb": {
+    "name": "Prolepsia",
+    "description": "Create probabilistic forecasts and check their progress from BB with your Prolepsia account.",
+    "branding": {
+      "icon": "ChartNoAxesCombined"
+    },
+    "server": "./server.ts",
+    "skills": [
+      "skills"
+    ]
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@get-bb/plugin-sdk": "0.6.104",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "tsx": "^4.20.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test *.test.ts",
+    "build": "bb plugin build"
+  },
+  "author": {
+    "name": "Daniel Proskurka",
+    "url": "https://github.com/danielproj"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielproj/bb-plugin-prolepsia.git"
+  },
+  "homepage": "https://github.com/danielproj/bb-plugin-prolepsia#readme"
+}
