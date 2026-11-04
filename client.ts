@@ -20,7 +20,7 @@ export function validateCall(name: string, args: Record<string, unknown>) {
 export async function withMcp<T>(key: string | undefined, signal: AbortSignal | undefined, operation: (client: Client, signal: AbortSignal) => Promise<T>): Promise<T> {
   if (!key?.trim()) throw new Error('Configure the Prolepsia API key in BB Settings → Installed plugins → Prolepsia.');
   const transport = new StreamableHTTPClientTransport(new URL(ENDPOINT), { requestInit: { headers: { Authorization: `Bearer ${key.trim()}` } } });
-  const client = new Client({ name: 'bb-plugin-prolepsia', version: '0.1.0' });
+  const client = new Client({ name: 'bb-plugin-prolepsia', version: '0.1.1' });
   const deadline = AbortSignal.timeout(70_000);
   const combined = signal ? AbortSignal.any([signal, deadline]) : deadline;
   const close = () => { void client.close().catch(() => {}); };

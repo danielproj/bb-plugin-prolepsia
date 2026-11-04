@@ -1,6 +1,6 @@
 {
   "name": "bb-plugin-prolepsia",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "engines": {
     "bb": ">=0.48",
@@ -10,7 +10,10 @@
     "name": "Prolepsia",
     "description": "Create probabilistic forecasts and check their progress from BB with your Prolepsia account.",
     "branding": {
-      "icon": "ChartNoAxesCombined"
+      "icon": "./assets/icon.svg",
+      "logo": {
+        "light": "./assets/logo.png"
+      }
     },
     "server": "./server.ts",
     "skills": [

@@ -44,3 +44,9 @@ BB's server-side secret setting. This version uses API keys, not OAuth.
 References: https://prolepsia.com/docs/developers and
 https://prolepsia.com/docs/developers/mcp . The upstream skill source is
 https://app.prolepsia.com/api/v1/mcp-skill/prolepsia.md .
+
+## Brand assets
+
+The full-color app icon is copied from https://app.prolepsia.com/apple-touch-icon.png.
+The compact monochrome mark preserves the paths from https://app.prolepsia.com/favicon.svg.
+Prolepsia branding belongs to its respective owner.
