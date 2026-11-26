@@ -1,12 +1,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { bounded, validateCall, withMcp, ENDPOINT } from './client.js';
+import { bounded, validateCall, withMcp, ENDPOINT, MAX_OUTPUT } from './client.js';
 
 test('bounds prevent unbounded fetches and long waits', () => {
   for (const args of [{ all: true }, { limit: 101 }, { limit: 0 }, { limit: 1.5 }]) assert.throws(() => validateCall('list_forecasts', args));
   for (const timeoutSeconds of [0, 56, NaN, '55']) assert.throws(() => validateCall('wait_for_forecast', { timeoutSeconds }));
   validateCall('wait_for_forecast', { timeoutSeconds: 55 });
-  assert.throws(() => bounded({ text: 'a'.repeat(120_000) }));
+  assert.throws(() => bounded({ text: 'a'.repeat(MAX_OUTPUT) }), /500,000 characters/);
+  // The live tool list (about 384,000 characters pretty-printed) must fit.
+  assert.ok(bounded({ text: 'a'.repeat(400_000) }).length < MAX_OUTPUT);
   assert.equal(JSON.parse(bounded({ isError: true })).isError, true);
 });
 test('missing credentials fail before network access', async () => {

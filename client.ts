@@ -2,10 +2,12 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
 
 export const ENDPOINT = 'https://app.prolepsia.com/api/v1/mcp/';
-export const MAX_OUTPUT = 120_000;
+// Prolepsia's full tools/list is about 384,000 characters pretty-printed (201 tools in one page),
+// so the cap leaves room for it to grow while keeping output bounded.
+export const MAX_OUTPUT = 500_000;
 export function bounded(value: unknown): string {
   const text = JSON.stringify(value, null, 2);
-  if (text.length > MAX_OUTPUT) throw new Error('Response exceeds 120,000 characters. Narrow the query, paginate, or omit subforecasts. The remote operation may already have completed; do not repeat a write.');
+  if (text.length > MAX_OUTPUT) throw new Error(`Response exceeds ${MAX_OUTPUT.toLocaleString('en-US')} characters. Narrow the query, paginate, or omit subforecasts. The remote operation may already have completed; do not repeat a write.`);
   return text;
 }
 export function validateCall(name: string, args: Record<string, unknown>) {
@@ -20,7 +22,7 @@ export function validateCall(name: string, args: Record<string, unknown>) {
 export async function withMcp<T>(key: string | undefined, signal: AbortSignal | undefined, operation: (client: Client, signal: AbortSignal) => Promise<T>): Promise<T> {
   if (!key?.trim()) throw new Error('Configure the Prolepsia API key in BB Settings → Installed plugins → Prolepsia.');
   const transport = new StreamableHTTPClientTransport(new URL(ENDPOINT), { requestInit: { headers: { Authorization: `Bearer ${key.trim()}` } } });
-  const client = new Client({ name: 'bb-plugin-prolepsia', version: '0.1.1' });
+  const client = new Client({ name: 'bb-plugin-prolepsia', version: '0.1.2' });
   const deadline = AbortSignal.timeout(70_000);
   const combined = signal ? AbortSignal.any([signal, deadline]) : deadline;
   const close = () => { void client.close().catch(() => {}); };

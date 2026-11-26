@@ -36,7 +36,7 @@ If creation times out, inspect `list_forecasts` before starting another run.
 No forecast has to be created to install or test this plugin.
 
 Wait calls allow 1–55 seconds. Use pagination: `all=true` is rejected and
-`limit` must be 1–100. Output over 120,000 characters raises instead of silently
+`limit` must be 1–100. Output over 500,000 characters raises instead of silently
 truncating data; use narrower reads. Requests have a 70-second total deadline
 and are closed on cancellation or plugin disposal. Authentication remains in
 BB's server-side secret setting. This version uses API keys, not OAuth.

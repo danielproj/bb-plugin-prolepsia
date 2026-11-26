@@ -1380,7 +1380,7 @@ any tool described above. If native tools are unavailable, use
 `bb prolepsia tools` and `bb prolepsia call <name> --args '<JSON object>'`.
 Responses preserve MCP `isError`; treat it as a failure, never as forecast data.
 Use pagination instead of `all=true`; limit is capped at 100. Wait calls are
-limited to 55 seconds. Responses larger than 120,000 characters raise: narrow
+limited to 55 seconds. Responses larger than 500,000 characters raise: narrow
 read queries, and check existing forecasts before repeating a write.
 Credentials belong in the Prolepsia plugin's secret API-key setting.
 Do not put credentials into tool arguments or chat.
